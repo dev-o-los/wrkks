@@ -32,10 +32,10 @@ export default function FileUpload() {
   const file = files[0];
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-100 cursor-pointer">
       {/* Drop area */}
       <div
-        className="flex min-h-40 flex-col items-center justify-center rounded-xl border border-input border-dashed p-4 transition-colors hover:bg-accent/50 has-disabled:pointer-events-none has-[input:focus]:border-ring has-disabled:opacity-50 has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[dragging=true]:bg-accent/50"
+        className="flex min-h-40 flex-col items-center justify-center rounded-xl border-2 border-input border-dashed p-4 transition-colors hover:bg-accent/50 has-disabled:pointer-events-none has-[input:focus]:border-ring has-disabled:opacity-50 has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[dragging=true]:bg-accent/50"
         data-dragging={isDragging || undefined}
         onClick={openFileDialog}
         onDragEnter={handleDragEnter}
@@ -59,9 +59,9 @@ export default function FileUpload() {
           >
             <UploadIcon className="size-4 opacity-60" />
           </div>
-          <p className="mb-1.5 font-medium text-sm">
+          <div className="mb-1.5 font-medium text-sm">
             Upload <p>Resume or Linkedin</p>
-          </p>
+          </div>
           <p className="text-muted-foreground text-xs">
             Drag & drop pdf or click to browse (max. {formatBytes(maxSize)})
           </p>
