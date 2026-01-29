@@ -1,4 +1,3 @@
-import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -24,7 +23,7 @@ const navigationLinks = [
 
 export default function NavBar() {
   return (
-    <header className="md:border border-b md:mx-36 md:rounded-full md:mt-6 px-4 md:px-6">
+    <header className="border-b mt-1 md:px-36 px-4">
       <div className="flex h-16 items-center justify-between gap-4">
         {/* Left side */}
         <div className="flex items-center gap-2">
@@ -80,25 +79,25 @@ export default function NavBar() {
           {/* Main nav */}
           <div className="flex items-center gap-6">
             <a className="text-primary hover:text-primary/90" href="#">
-              <Logo />
+              Wrkks
             </a>
             {/* Navigation menu */}
-            <NavigationMenu className="max-md:hidden">
-              <NavigationMenuList className="gap-2">
-                {navigationLinks.map((link, index) => (
-                  <NavigationMenuItem key={String(index)}>
-                    <NavigationMenuLink
-                      className="py-1.5 font-medium text-muted-foreground hover:text-primary"
-                      href={link.href}
-                    >
-                      {link.label}
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
           </div>
         </div>
+        <NavigationMenu className="max-md:hidden">
+          <NavigationMenuList className="gap-2">
+            {navigationLinks.map((link, index) => (
+              <NavigationMenuItem key={String(index)}>
+                <NavigationMenuLink
+                  className="py-1.5 font-medium text-muted-foreground hover:text-primary"
+                  href={link.href}
+                >
+                  {link.label}
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
         {/* Right side */}
         <div className="flex items-center gap-4">
           <ThemeToggle />

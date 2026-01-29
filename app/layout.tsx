@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import { Bricolage_Grotesque, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
+import NavBar from "@/components/nav-bar";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
@@ -34,6 +35,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <NavBar />
           {children}
         </ThemeProvider>
       </body>
