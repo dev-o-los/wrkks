@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { formatBytes, useFileUpload } from "@/hooks/use-file-upload";
 
-export default function Component() {
+export default function FileUpload() {
   const maxSize = 10 * 1024 * 1024; // 10MB default
 
   const [
