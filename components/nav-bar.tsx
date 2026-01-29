@@ -12,6 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import UserMenu from "@/components/user-menu";
+import { ThemeToggle } from "./ThemeToggle";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -100,6 +101,7 @@ export default function NavBar() {
         </div>
         {/* Right side */}
         <div className="flex items-center gap-4">
+          <ThemeToggle />
           {/* User menu */}
           <UserMenu />
         </div>
