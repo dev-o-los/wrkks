@@ -1,5 +1,4 @@
 import FileUpload from "@/components/FileUpload";
-import GenerateBtn from "@/components/GenerateBtn";
 
 export default function Home() {
   return (
@@ -10,8 +9,6 @@ export default function Home() {
           personal site
         </div>
         <FileUpload />
-        <div className="pb-12"></div>
-        <GenerateBtn />
       </div>
     </div>
   );

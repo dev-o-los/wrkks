@@ -1,8 +1,10 @@
+import NavBar from "@/components/nav-bar";
+import { AnchoredToastProvider, ToastProvider } from "@/components/ui/toast";
+import { TanStackQueryProvider } from "@/providers/tanstack-provider";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Bricolage_Grotesque, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/nav-bar";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
@@ -29,15 +31,21 @@ export default function RootLayout({
       <body
         className={`${bricolage.className} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NavBar />
-          {children}
-        </ThemeProvider>
+        <TanStackQueryProvider>
+          <ToastProvider>
+            <AnchoredToastProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <NavBar />
+                {children}
+              </ThemeProvider>
+            </AnchoredToastProvider>
+          </ToastProvider>
+        </TanStackQueryProvider>
       </body>
     </html>
   );
