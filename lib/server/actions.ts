@@ -1,6 +1,6 @@
 "use server";
 
-import { Resume } from "../types";
+import { normalizeResume } from "../helpers";
 
 export async function parseResume(file: File) {
   const formData = new FormData();
@@ -41,5 +41,5 @@ export async function structureResume(text: string) {
   }
 
   const data = await res.json();
-  return data as Resume; // this is structured Resume JSON
+  return normalizeResume(data); // this is structured Resume JSON
 }
