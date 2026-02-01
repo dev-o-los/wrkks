@@ -4,8 +4,8 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import UserMenu from "@/components/user-menu";
 import { UserIcon } from "lucide-react";
+import SignUpBtn from "./SignUpBtn";
 import { ThemeToggle } from "./ThemeToggle";
 import ArrowBigUpDashIcon from "./ui/arrow-big-up-dash-icon";
 import HomeIcon from "./ui/home-icon";
@@ -42,8 +42,7 @@ export default function NavBar() {
         {/* Right side */}
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          {/* User menu */}
-          <UserMenu />
+          <SignUpBtn />
         </div>
       </div>
     </header>
