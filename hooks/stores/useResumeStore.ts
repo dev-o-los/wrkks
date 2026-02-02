@@ -1,6 +1,5 @@
 "use client";
 
-import { normalizeResume } from "@/lib/helpers";
 import { Resume } from "@/lib/types";
 import { create } from "zustand";
 
@@ -30,8 +29,7 @@ export const useResumeStore = create<ResumeStore>((set) => ({
   resume: null,
 
   setRawText: (text) => set({ rawText: text }),
-
-  setResume: (resume) => set({ resume: normalizeResume(resume) }),
+  setResume: (resume) => set({ resume }),
 
   updatePersonalInfo: (info) =>
     set((state) => ({
