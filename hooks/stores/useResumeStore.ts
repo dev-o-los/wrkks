@@ -2,6 +2,7 @@
 
 import { Resume } from "@/lib/types";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type ResumeStore = {
   rawText: string;
@@ -24,68 +25,80 @@ type ResumeStore = {
   reset: () => void;
 };
 
-export const useResumeStore = create<ResumeStore>((set) => ({
-  rawText: "",
-  resume: null,
+export const useResumeStore = create<ResumeStore>()(
+  persist(
+    (set) => ({
+      rawText: "",
+      resume: null,
 
-  setRawText: (text) => set({ rawText: text }),
-  setResume: (resume) => set({ resume }),
+      setRawText: (text) => set({ rawText: text }),
+      setResume: (resume) => set({ resume }),
 
-  updatePersonalInfo: (info) =>
-    set((state) => ({
-      resume: state.resume
-        ? {
-            ...state.resume,
-            personalInfo: {
-              ...state.resume.personalInfo,
-              ...info,
-            },
-          }
-        : null,
-    })),
+      updatePersonalInfo: (info) =>
+        set((state) => ({
+          resume: state.resume
+            ? {
+                ...state.resume,
+                personalInfo: {
+                  ...state.resume.personalInfo,
+                  ...info,
+                },
+              }
+            : null,
+        })),
 
-  updateSummary: (summary) =>
-    set((state) => ({
-      resume: state.resume ? { ...state.resume, summary } : null,
-    })),
+      updateSummary: (summary) =>
+        set((state) => ({
+          resume: state.resume ? { ...state.resume, summary } : null,
+        })),
 
-  updateSkills: (skills) =>
-    set((state) => ({
-      resume: state.resume
-        ? {
-            ...state.resume,
-            skills: {
-              ...state.resume.skills,
-              ...skills,
-            },
-          }
-        : null,
-    })),
+      updateSkills: (skills) =>
+        set((state) => ({
+          resume: state.resume
+            ? {
+                ...state.resume,
+                skills: {
+                  ...state.resume.skills,
+                  ...skills,
+                },
+              }
+            : null,
+        })),
 
-  updateExperience: (experience) =>
-    set((state) => ({
-      resume: state.resume ? { ...state.resume, experience } : null,
-    })),
+      updateExperience: (experience) =>
+        set((state) => ({
+          resume: state.resume ? { ...state.resume, experience } : null,
+        })),
 
-  updateProjects: (projects) =>
-    set((state) => ({
-      resume: state.resume ? { ...state.resume, projects } : null,
-    })),
+      updateProjects: (projects) =>
+        set((state) => ({
+          resume: state.resume ? { ...state.resume, projects } : null,
+        })),
 
-  updateEducation: (education) =>
-    set((state) => ({
-      resume: state.resume ? { ...state.resume, education } : null,
-    })),
+      updateEducation: (education) =>
+        set((state) => ({
+          resume: state.resume ? { ...state.resume, education } : null,
+        })),
 
-  updateExtracurricular: (extracurricular) =>
-    set((state) => ({
-      resume: state.resume ? { ...state.resume, extracurricular } : null,
-    })),
+      updateExtracurricular: (extracurricular) =>
+        set((state) => ({
+          resume: state.resume ? { ...state.resume, extracurricular } : null,
+        })),
 
-  updateCustomSections: (customSections) =>
-    set((state) => ({
-      resume: state.resume ? { ...state.resume, customSections } : null,
-    })),
+      updateCustomSections: (customSections) =>
+        set((state) => ({
+          resume: state.resume ? { ...state.resume, customSections } : null,
+        })),
 
-  reset: () => set({ rawText: "", resume: null }),
-}));
+      reset: () => set({ rawText: "", resume: null }),
+    }),
+    {
+      name: "resume-store",
+      // optional: only persist resume + rawText
+      partialize: (state) => ({
+        rawText: state.rawText,
+        resume: state.resume,
+      }),
+    },
+  ),
+);

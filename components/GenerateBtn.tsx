@@ -39,11 +39,15 @@ export default function GenerateBtn({ file }: { file: File }) {
   return (
     <Button
       variant="outline"
-      className="py-5 px-6 rounded-full"
+      className={`py-5 px-6 rounded-full`}
       disabled={!file || isPending}
       onClick={() => mutate(file)}
     >
-      {isPending ? "Generating site..." : "Generate Site"}
+      {isPending ? (
+        <div className="animate-pulse">Generating site...</div>
+      ) : (
+        "Generate Site"
+      )}
       <SparklesIcon aria-hidden="true" className="-me-1 opacity-60" size={16} />
     </Button>
   );
