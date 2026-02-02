@@ -1,6 +1,6 @@
 import FileUpload from "@/components/FileUpload";
 
-export default function Home() {
+export default function Upload() {
   return (
     <div>
       <div className="flex mt-20 text-lg text-center flex-col justify-center items-center">

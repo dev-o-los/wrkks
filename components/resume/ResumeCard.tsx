@@ -1,6 +1,8 @@
 import { normalizeUrl } from "@/lib/helpers";
 import { Resume } from "@/lib/types";
-import { Github, Globe, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Globe, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import GithubIcon from "../ui/github-icon";
+import TwitterXIcon from "../ui/twitter-x-icon";
 
 type Props = { resume: Resume };
 
@@ -8,6 +10,7 @@ export const ResumeCard = ({ resume }: Props) => {
   const githubUrl = normalizeUrl(resume.personalInfo.github);
   const linkedInUrl = normalizeUrl(resume.personalInfo.linkedin);
   const websiteUrl = normalizeUrl(resume.personalInfo.website);
+  const twitterUrl = normalizeUrl(resume.personalInfo.twitter);
 
   // Helper to check if a string has actual content
   const hasContent = (val?: string) => val && val.trim().length > 0;
@@ -66,9 +69,19 @@ export const ResumeCard = ({ resume }: Props) => {
                     href={githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="px-2 pt-0.5 border border-border rounded-md text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
+                  >
+                    <GithubIcon size={18} strokeWidth={2} />
+                  </a>
+                )}
+                {twitterUrl && (
+                  <a
+                    href={twitterUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-2 border border-border rounded-md text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
                   >
-                    <Github size={18} strokeWidth={2} />
+                    <TwitterXIcon size={18} strokeWidth={2} />
                   </a>
                 )}
                 {websiteUrl && (
@@ -249,6 +262,58 @@ export const ResumeCard = ({ resume }: Props) => {
               ))}
             </div>
           </section>
+        )}
+
+        {/* Extracurricular Activities */}
+        {resume.extracurricular && resume.extracurricular.length > 0 && (
+          <section className="mb-10">
+            <h2 className="text-xl font-bold mb-4 border-b pb-1 border-border">
+              Extracurricular Activities
+            </h2>
+            <ul className="list-disc ml-5 space-y-2">
+              {resume.extracurricular.map(
+                (activity, idx) =>
+                  hasContent(activity) && (
+                    <li
+                      key={idx}
+                      className="text-[14px] text-muted-foreground leading-normal"
+                    >
+                      {activity}
+                    </li>
+                  ),
+              )}
+            </ul>
+          </section>
+        )}
+
+        {/* Custom Sections (Certifications, Languages, etc.) */}
+        {resume.customSections && resume.customSections.length > 0 && (
+          <div className="space-y-10">
+            {resume.customSections.map(
+              (section, sIdx) =>
+                hasContent(section.title) &&
+                section.items.length > 0 && (
+                  <section key={sIdx} className="mb-10">
+                    <h2 className="text-xl font-bold mb-4 border-b pb-1 border-border">
+                      {section.title}
+                    </h2>
+                    <ul className="list-disc ml-5 space-y-2">
+                      {section.items.map(
+                        (item, iIdx) =>
+                          hasContent(item) && (
+                            <li
+                              key={iIdx}
+                              className="text-[14px] text-muted-foreground leading-normal"
+                            >
+                              {item}
+                            </li>
+                          ),
+                      )}
+                    </ul>
+                  </section>
+                ),
+            )}
+          </div>
         )}
       </div>
     </div>

@@ -1,9 +1,11 @@
+import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
+
 export default function Home() {
   return (
-    <div>
-      <div className="flex mt-20 text-lg text-center flex-col justify-center items-center">
-        <div className="mb-12">Add landing</div>
-      </div>
+    <div className="flex flex-col items-center">
+      <Hero />
+      <Footer />
     </div>
   );
 }

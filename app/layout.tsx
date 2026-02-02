@@ -1,6 +1,8 @@
 import NavBar from "@/components/nav-bar";
+import SyncUser from "@/components/SyncUser";
 import { AnchoredToastProvider, ToastProvider } from "@/components/ui/toast";
 import { TanStackQueryProvider } from "@/providers/tanstack-provider";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Bricolage_Grotesque, Geist_Mono } from "next/font/google";
@@ -27,26 +29,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${bricolage.className} ${geistMono.variable} antialiased`}
-      >
-        <TanStackQueryProvider>
-          <ToastProvider>
-            <AnchoredToastProvider>
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-                disableTransitionOnChange
-              >
-                <NavBar />
-                {children}
-              </ThemeProvider>
-            </AnchoredToastProvider>
-          </ToastProvider>
-        </TanStackQueryProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${bricolage.className} ${geistMono.variable} antialiased`}
+        >
+          <TanStackQueryProvider>
+            <ToastProvider>
+              <AnchoredToastProvider>
+                <ThemeProvider
+                  attribute="class"
+                  defaultTheme="system"
+                  enableSystem
+                  disableTransitionOnChange
+                >
+                  <SyncUser />
+                  <NavBar />
+                  {children}
+                </ThemeProvider>
+              </AnchoredToastProvider>
+            </ToastProvider>
+          </TanStackQueryProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

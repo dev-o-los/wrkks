@@ -7,7 +7,7 @@ import { AnimatedIconHandle } from "./ui/types";
 
 type AnimatedIconButtonProps = {
   icon: ReactElement;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   onClick?: () => void;
 };

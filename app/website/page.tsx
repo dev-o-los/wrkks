@@ -4,8 +4,8 @@ import StatusBtn from "@/components/StatusBtn";
 import { Button } from "@/components/ui/button";
 import LinkIcon from "@/components/ui/link-icon";
 
-export default function Site() {
-  const isLive = true;
+export default function WebSite() {
+  const isLive = false;
 
   return (
     <div>

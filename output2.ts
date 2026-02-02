@@ -1,4 +1,4 @@
-export const resume = {
+const resume = {
   personalInfo: {
     name: "Utkarsh Upadhyay",
     title: "B.Tech Computer Science undergraduate",

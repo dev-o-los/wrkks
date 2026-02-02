@@ -1,7 +1,7 @@
 "use client";
 
+import { useResumeStore } from "@/hooks/stores/useResumeStore";
 import { normalizeResume } from "@/lib/helpers";
-import { resume } from "@/output2";
 import { useState } from "react";
 import AnimatedIconButton from "./AnimatedBtn";
 import { ResumeCard } from "./resume/ResumeCard";
@@ -10,8 +10,8 @@ import EyeIcon from "./ui/eye-icon";
 import PenIcon from "./ui/pen-icon";
 
 export default function ResumePreview() {
-  // const resume = useResumeStore((s) => s.resume);
-  // console.log(resume);
+  const resume = useResumeStore((s) => s.resume);
+  console.log(resume);
 
   const [isEditMode, setisEditMode] = useState(false);
 

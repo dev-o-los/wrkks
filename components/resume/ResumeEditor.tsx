@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { useResumeStore } from "@/hooks/stores/useResumeStore";
-import { Education, Experience } from "@/lib/types";
+import { CustomSection, Education, Experience, Project } from "@/lib/types";
 import { Plus, X } from "lucide-react";
 import EditSkillsDialog from "./EditSkillsDialog";
 
@@ -17,6 +17,9 @@ export const ResumeEditor = () => {
     updateExperience,
     updateEducation,
     updateSkills,
+    updateProjects,
+    updateCustomSections,
+    updateExtracurricular,
   } = useResumeStore();
 
   if (!resume) {
@@ -62,6 +65,27 @@ export const ResumeEditor = () => {
     updateEducation([...resume.education, newEdu]);
   };
 
+  const addProject = () => {
+    const newProj: Project = {
+      name: "",
+      role: "",
+      startDate: "",
+      endDate: "",
+      description: [""],
+      technologies: [],
+      link: "",
+    };
+    updateProjects([...(resume.projects || []), newProj]);
+  };
+
+  const addCustomSection = () => {
+    const newSection: CustomSection = {
+      title: "",
+      items: [""],
+    };
+    updateCustomSections([...(resume.customSections || []), newSection]);
+  };
+
   return (
     <aside className="w-full h-full bg-background flex flex-col max-w-3xl mx-auto border rounded-lg">
       <ScrollArea className="flex-1">
@@ -69,18 +93,30 @@ export const ResumeEditor = () => {
           {/* HEADER SECTION */}
           <section>
             <h2 className={sectionHeadingClass}>Personal Info</h2>
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="flex gap-4 mb-4">
               <div>
                 <label className={labelClass}>Name</label>
                 <Input
                   value={resume.personalInfo.name}
+                  placeholder="Elon Tusk"
                   onChange={(e) => updatePersonalInfo({ name: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className={labelClass}>Headline</label>
+                <Input
+                  value={resume.personalInfo.title}
+                  placeholder="CEO of X-tra Large Projects"
+                  onChange={(e) =>
+                    updatePersonalInfo({ title: e.target.value })
+                  }
                 />
               </div>
               <div>
                 <label className={labelClass}>Location</label>
                 <Input
                   value={resume.personalInfo.location}
+                  placeholder="Starbase, Texas / Orbit"
                   onChange={(e) =>
                     updatePersonalInfo({ location: e.target.value })
                   }
@@ -92,6 +128,7 @@ export const ResumeEditor = () => {
               <label className={labelClass}>Short About</label>
               <Textarea
                 className="min-h-25"
+                placeholder="Highly motivated multi-planet entrepreneur with a proven track record of disrupting industries that didn't even know they were broken. Expert in first-principles thinking, 80-hour work weeks, and naming children after Wi-Fi passwords. Currently seeking to move humanity's 'production' environment to Mars because Earth's 'staging' server is getting too crowded."
                 value={resume.summary}
                 onChange={(e) => updateSummary(e.target.value)}
               />
@@ -102,6 +139,7 @@ export const ResumeEditor = () => {
                 <label className={labelClass}>Email</label>
                 <Input
                   value={resume.personalInfo.email}
+                  placeholder="tusk@x.com"
                   onChange={(e) =>
                     updatePersonalInfo({ email: e.target.value })
                   }
@@ -158,7 +196,7 @@ export const ResumeEditor = () => {
                   <Input
                     value={resume.personalInfo.twitter}
                     onChange={(e) =>
-                      updatePersonalInfo({ title: e.target.value })
+                      updatePersonalInfo({ twitter: e.target.value })
                     }
                     placeholder="Twitter"
                   />
@@ -166,6 +204,7 @@ export const ResumeEditor = () => {
               </div>
             </div>
           </section>
+
           {/* WORK EXPERIENCE */}
           <section>
             <h2 className={sectionHeadingClass}>Work Experience</h2>
@@ -263,6 +302,128 @@ export const ResumeEditor = () => {
                 className={buttonClass}
               >
                 <Plus size={16} className="mr-2" /> Add Work Experience
+              </Button>
+            </div>
+          </section>
+
+          {/* PROJECTS SECTION */}
+          <section>
+            <h2 className={sectionHeadingClass}>Projects</h2>
+            <div className="space-y-4">
+              {resume.projects?.map((proj, idx) => (
+                <div key={idx} className={cardClass}>
+                  <button
+                    onClick={() =>
+                      updateProjects(
+                        resume.projects.filter((_, i) => i !== idx),
+                      )
+                    }
+                    className="absolute top-4 right-4 text-muted-foreground hover:text-destructive transition-colors"
+                  >
+                    <X size={16} />
+                  </button>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className={labelClass}>Project Name</label>
+                      <Input
+                        value={proj.name}
+                        onChange={(e) => {
+                          const newProjs = [...resume.projects];
+                          newProjs[idx] = {
+                            ...newProjs[idx],
+                            name: e.target.value,
+                          };
+                          updateProjects(newProjs);
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <label className={labelClass}>Role</label>
+                      <Input
+                        value={proj.role}
+                        onChange={(e) => {
+                          const newProjs = [...resume.projects];
+                          newProjs[idx] = {
+                            ...newProjs[idx],
+                            role: e.target.value,
+                          };
+                          updateProjects(newProjs);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className={labelClass}>Start Date</label>
+                      <Input
+                        value={proj.startDate}
+                        onChange={(e) => {
+                          const newProjs = [...resume.projects];
+                          newProjs[idx] = {
+                            ...newProjs[idx],
+                            startDate: e.target.value,
+                          };
+                          updateProjects(newProjs);
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <label className={labelClass}>End Date</label>
+                      <Input
+                        value={proj.endDate}
+                        onChange={(e) => {
+                          const newProjs = [...resume.projects];
+                          newProjs[idx] = {
+                            ...newProjs[idx],
+                            endDate: e.target.value,
+                          };
+                          updateProjects(newProjs);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className={labelClass}>Project Link</label>
+                    <Input
+                      placeholder="https://github.com/..."
+                      value={proj.link}
+                      onChange={(e) => {
+                        const newProjs = [...resume.projects];
+                        newProjs[idx] = {
+                          ...newProjs[idx],
+                          link: e.target.value,
+                        };
+                        updateProjects(newProjs);
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label className={labelClass}>Description</label>
+                    <Textarea
+                      className="min-h-25 resize-none text-sm"
+                      value={proj.description.join("\n")}
+                      onChange={(e) => {
+                        const newProjs = [...resume.projects];
+                        newProjs[idx] = {
+                          ...newProjs[idx],
+                          description: e.target.value.split("\n"),
+                        };
+                        updateProjects(newProjs);
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+              <Button
+                onClick={addProject}
+                variant="outline"
+                className={buttonClass}
+              >
+                <Plus size={16} className="mr-2" /> Add Project
               </Button>
             </div>
           </section>
@@ -389,6 +550,88 @@ export const ResumeEditor = () => {
               ))}
             </div>
             <EditSkillsDialog updateSkills={updateSkills} resume={resume} />
+          </section>
+
+          {/* EXTRACURRICULAR SECTION */}
+          <section>
+            <h2 className={sectionHeadingClass}>Extracurricular Activities</h2>
+            <div className={cardClass}>
+              <label className={labelClass}>Activities (One per line)</label>
+              <Textarea
+                placeholder="Volunteering at...\nWon 1st place in..."
+                className="min-h-32 resize-none text-sm"
+                value={resume.extracurricular?.join("\n") || ""}
+                onChange={(e) =>
+                  updateExtracurricular(e.target.value.split("\n"))
+                }
+              />
+              <p className="text-[10px] text-muted-foreground italic">
+                Each new line will appear as a separate bullet point.
+              </p>
+            </div>
+          </section>
+
+          {/* CUSTOM SECTIONS (Certifications, Languages, etc.) */}
+          <section className="pb-4">
+            <h2 className={sectionHeadingClass}>Custom Sections</h2>
+            <div className="space-y-6">
+              {resume.customSections?.map((section, sIdx) => (
+                <div key={sIdx} className={cardClass}>
+                  <button
+                    onClick={() =>
+                      updateCustomSections(
+                        resume.customSections.filter((_, i) => i !== sIdx),
+                      )
+                    }
+                    className="absolute top-4 right-4 text-muted-foreground hover:text-destructive transition-colors"
+                  >
+                    <X size={16} />
+                  </button>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label className={labelClass}>Section Title</label>
+                      <Input
+                        placeholder="e.g. Certifications"
+                        value={section.title}
+                        onChange={(e) => {
+                          const newSections = [...resume.customSections];
+                          newSections[sIdx] = {
+                            ...newSections[sIdx],
+                            title: e.target.value,
+                          };
+                          updateCustomSections(newSections);
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <label className={labelClass}>Items (One per line)</label>
+                      <Textarea
+                        className="min-h-24 resize-none text-sm"
+                        placeholder="AWS Certified Solutions Architect"
+                        value={section.items.join("\n")}
+                        onChange={(e) => {
+                          const newSections = [...resume.customSections];
+                          newSections[sIdx] = {
+                            ...newSections[sIdx],
+                            items: e.target.value.split("\n"),
+                          };
+                          updateCustomSections(newSections);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              <Button
+                onClick={addCustomSection}
+                variant="outline"
+                className={buttonClass}
+              >
+                <Plus size={16} className="mr-2" /> Add Custom Section
+              </Button>
+            </div>
           </section>
         </div>
       </ScrollArea>
