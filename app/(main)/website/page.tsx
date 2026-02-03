@@ -1,6 +1,6 @@
 import DomainInputField from "@/components/DomainInputField";
 import { PublishButton } from "@/components/PublishBtn";
-import ResumePreview from "@/components/ResumeEditor";
+import ResumePreview from "@/components/ResumePreview";
 import StatusBtn from "@/components/StatusBtn";
 import LinkIcon from "@/components/ui/link-icon";
 

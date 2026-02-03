@@ -15,8 +15,12 @@ export default function UserPage() {
     queryFn: () => getUserResume(params.slug as string),
   });
 
+  const isEmptyResume =
+    !data?.resume ||
+    (typeof data.resume === "object" && Object.keys(data.resume).length === 0);
+
   if (isLoading) return <Loading />;
-  if (isError || !data?.resume) return <NotFoundPage />;
+  if (isError || !data?.resume || isEmptyResume) return <NotFoundPage />;
 
   return <ResumeCard resume={data.resume} />;
 }
