@@ -9,8 +9,6 @@ export default function ResumeImage() {
   if (!isLoaded) return null; // or a spinner
   if (!isSignedIn) return null;
 
-  console.log(user.hasImage);
-
   return user.hasImage ? (
     <div className="relative w-24 h-24 rounded-xl bg-muted border border-border shrink-0 overflow-hidden">
       <Image

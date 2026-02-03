@@ -18,7 +18,7 @@ export default function DomainInputField() {
     queryFn: async () => getUserData(["username"]),
   });
 
-  const username = data?.username ?? "username";
+  const username = data?.username ?? "";
 
   return (
     <div className="*:not-first:mt-2">

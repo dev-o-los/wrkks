@@ -49,7 +49,6 @@ export default function EditSkillsDialog({
           <AlertDialogAction
             onClick={() => {
               const val = ref.current?.value;
-              console.log(val);
               if (val) {
                 updateSkills({
                   languages: [...resume.skills.languages, val],

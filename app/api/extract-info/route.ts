@@ -109,7 +109,6 @@ ${text}
 
     return NextResponse.json(parsedJSON);
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { msg: "Failed to parse PDF", details: (error as APIError).message },
       { status: 500 },

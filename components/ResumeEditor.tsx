@@ -11,8 +11,6 @@ import PenIcon from "./ui/pen-icon";
 
 export default function ResumePreview() {
   const resume = useResumeStore((s) => s.resume);
-  console.log(resume);
-
   const [isEditMode, setisEditMode] = useState(false);
 
   if (!resume) return <p>error</p>;

@@ -20,6 +20,24 @@ export async function updateUserData(updates: UpdateUserData) {
     throw new Error("No fields provided to update");
   }
 
+  if (updates.username) {
+    const { data: existingUser, error: checkError } = await supabase
+      .from("users")
+      .select("clerk_user_id")
+      .eq("username", updates.username)
+      .single();
+
+    if (checkError) {
+      console.error("Error checking username uniqueness:", checkError);
+      throw new Error("Could not verify username availability");
+    }
+
+    // If we found someone with that username AND it's not the current user
+    if (existingUser && existingUser.clerk_user_id !== userId) {
+      throw new Error("Username is already taken");
+    }
+  }
+
   const { data, error } = await supabase
     .from("users")
     .update({ ...updates, updated_at: new Date().toISOString() })
@@ -29,6 +47,10 @@ export async function updateUserData(updates: UpdateUserData) {
 
   if (error) {
     console.error("Supabase update error:", error);
+    // Handle database-level unique constraint just in case of a race condition
+    if (error.code === "23505") {
+      throw new Error("This username is no longer available");
+    }
     return null;
   }
 

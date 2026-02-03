@@ -36,7 +36,6 @@ export function PublishButton() {
         type: "success",
       });
 
-      console.log(resumeData);
       queryClient.setQueryData(["islive", "user-l"], {
         islive: data !== null ? true : false,
         username: resumeData !== null ? resumeData.username : "username",
