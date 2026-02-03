@@ -26,7 +26,6 @@ Schema:
     "website": "string",
     "linkedin": "string",
     "github": "string",
-    "imageUrl":"string",
   },
   "summary": "string",
   "skills": {

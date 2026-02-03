@@ -1,7 +1,7 @@
 import { normalizeUrl } from "@/lib/helpers";
 import { Resume } from "@/lib/types";
 import { Globe, Linkedin, Mail, MapPin, Phone } from "lucide-react";
-import Image from "next/image";
+import ResumeImage from "../ResumeImage";
 import GithubIcon from "../ui/github-icon";
 import TwitterXIcon from "../ui/twitter-x-icon";
 
@@ -98,16 +98,7 @@ export const ResumeCard = ({ resume }: Props) => {
               </div>
             )}
           </div>
-          <div className="relative w-24 h-24 rounded-xl bg-muted border border-border shrink-0 overflow-hidden">
-            {resume.personalInfo.imageUrl && (
-              <Image
-                src={resume.personalInfo.imageUrl}
-                alt="Description"
-                fill
-                className="object-cover"
-              />
-            )}
-          </div>
+          <ResumeImage />
         </header>
 
         {/* About */}
