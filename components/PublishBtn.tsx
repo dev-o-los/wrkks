@@ -38,7 +38,7 @@ export function PublishButton() {
 
       queryClient.setQueryData(["islive", "user-l"], {
         islive: data !== null ? true : false,
-        username: resumeData !== null ? resumeData.username : "username",
+        username: resumeData !== null ? resumeData.username : "",
       });
     },
     onError: (err) => {

@@ -21,7 +21,7 @@ const Footer = () => {
             </span>
 
             <div className="flex items-center gap-2">
-              <Link href="https://github.com/dev-o-los/rexime" target="_blank">
+              <Link href="https://github.com/dev-o-los/wrkks" target="_blank">
                 <AnimatedIconButton
                   icon={<GitHubIcon />}
                   className="rounded-full size-9"
