@@ -13,6 +13,7 @@ export function normalizeResume(raw: any): Resume {
       linkedin: raw?.personalInfo?.linkedin ?? "",
       github: raw?.personalInfo?.github ?? "",
       twitter: raw?.personalInfo?.twitter ?? "",
+      imageUrl: raw?.personalInfo?.imageUrl ?? "",
     },
     summary: raw?.summary ?? "",
     skills: {

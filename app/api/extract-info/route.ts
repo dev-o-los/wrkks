@@ -25,7 +25,8 @@ Schema:
     "email": "string",
     "website": "string",
     "linkedin": "string",
-    "github": "string"
+    "github": "string",
+    "imageUrl":"string",
   },
   "summary": "string",
   "skills": {
