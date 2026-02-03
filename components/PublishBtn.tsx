@@ -3,28 +3,43 @@
 import { useResumeStore } from "@/hooks/stores/useResumeStore";
 import { getUserData } from "@/lib/supabase/getUserData";
 import { publishResume } from "@/lib/supabase/resume/publishResume";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { Resume } from "@/lib/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { toastManager } from "./ui/toast";
 
 export function PublishButton() {
   const resume = useResumeStore((s) => s.resume);
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { data } = useQuery({
-    queryKey: ["islive"],
-    queryFn: async () => getUserData(["islive"]),
-    placeholderData: { islive: false },
+    queryKey: ["islive", "user-l"],
+    queryFn: async () => getUserData(["islive", "username"]),
+    placeholderData: { islive: false, username: "username" },
   });
 
   const islive = data?.islive ?? false;
+  const username = (data?.username as string) ?? "/website";
 
   const mutation = useMutation({
-    mutationFn: (resumeData: NonNullable<typeof resume>) =>
-      publishResume(resumeData),
-    onSuccess: () => {
+    mutationFn: (resumeData: Resume | null) => publishResume(resumeData),
+    onSuccess: (resumeData) => {
+      const data = resumeData?.resume;
+
       toastManager.add({
-        title: "Resume published successfully!",
+        title:
+          data !== null
+            ? "Resume published successfully!"
+            : "Resume unpublished successfully!",
         type: "success",
+      });
+
+      console.log(resumeData);
+      queryClient.setQueryData(["islive", "user-l"], {
+        islive: data !== null ? true : false,
+        username: resumeData !== null ? resumeData.username : "username",
       });
     },
     onError: (err) => {
@@ -44,12 +59,24 @@ export function PublishButton() {
       return;
     }
 
-    mutation.mutate(resume);
+    if (islive) {
+      router.push(username);
+    } else {
+      mutation.mutate(resume);
+    }
+  };
+
+  const handleUnpublish = () => {
+    mutation.mutate(null);
   };
   return (
     <div className="flex gap-2.5 w-full">
       {islive && (
-        <Button variant="secondary" className="w-full">
+        <Button
+          onClick={handleUnpublish}
+          variant="secondary"
+          className="w-full"
+        >
           Unpublish
         </Button>
       )}

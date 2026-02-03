@@ -4,7 +4,7 @@ import { Resume } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
 import { createClient } from "../server";
 
-export async function publishResume(resume: Resume) {
+export async function publishResume(resume: Resume | null) {
   const supabase = await createClient();
   const { userId } = await auth();
 
@@ -17,7 +17,7 @@ export async function publishResume(resume: Resume) {
     .from("users")
     .update({
       resume: resume,
-      islive: true,
+      islive: resume === null ? false : true,
       updated_at: new Date().toISOString(),
     })
     .eq("clerk_user_id", userId)
