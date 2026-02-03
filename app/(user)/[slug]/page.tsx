@@ -1,17 +1,22 @@
 "use client";
 
+import Loading from "@/components/loading";
+import { NotFoundPage } from "@/components/NotFound";
 import { ResumeCard } from "@/components/resume/ResumeCard";
 import { getUserResume } from "@/lib/supabase/resume/getResume";
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 
 export default function UserPage() {
-  const { data, isLoading, isError, error } = useQuery({
+  const params = useParams();
+
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["user-resume"],
-    queryFn: getUserResume,
+    queryFn: () => getUserResume(params.slug as string),
   });
 
-  if (isLoading) return <div>loading...</div>;
-  if (isError || !data?.resume) return <div>{error?.message ?? "error"}</div>;
+  if (isLoading) return <Loading />;
+  if (isError || !data?.resume) return <NotFoundPage />;
 
   return <ResumeCard resume={data.resume} />;
 }

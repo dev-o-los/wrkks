@@ -6,7 +6,8 @@ import {
   EmptyHeader,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { Compass, Home } from "lucide-react";
+import { Home } from "lucide-react";
+import Link from "next/link";
 
 export function NotFoundPage() {
   return (
@@ -27,15 +28,9 @@ export function NotFoundPage() {
             <EmptyContent>
               <div className="flex gap-2">
                 <Button asChild>
-                  <a href="#">
+                  <Link href="/">
                     <Home /> Go Home
-                  </a>
-                </Button>
-
-                <Button asChild variant="outline">
-                  <a href="#">
-                    <Compass /> Explore
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </EmptyContent>

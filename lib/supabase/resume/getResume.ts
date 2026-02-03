@@ -8,7 +8,9 @@ type UserResumeResponse = {
   resume: Resume | null;
 };
 
-export async function getUserResume(): Promise<UserResumeResponse> {
+export async function getUserResume(
+  username: string,
+): Promise<UserResumeResponse> {
   const supabase = await createClient();
   const { userId } = await auth();
 
@@ -19,6 +21,7 @@ export async function getUserResume(): Promise<UserResumeResponse> {
   const { data, error } = await supabase
     .from("users")
     .select("resume")
+    .eq("username", username)
     .eq("clerk_user_id", userId)
     .single();
 

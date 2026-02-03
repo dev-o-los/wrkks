@@ -4,7 +4,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { UserIcon } from "lucide-react";
+import ProfileBtn from "./ProfileBtn";
 import SignUpBtn from "./SignUpBtn";
 import { ThemeToggle } from "./ThemeToggle";
 import ArrowBigUpDashIcon from "./ui/arrow-big-up-dash-icon";
@@ -13,7 +13,7 @@ import HomeIcon from "./ui/home-icon";
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
   { href: "/", label: <HomeIcon /> },
-  { href: "/error", label: <UserIcon /> },
+  // { href: "/error", label: <UserIcon /> },
   { href: "/upload", label: <ArrowBigUpDashIcon /> },
 ];
 
@@ -45,6 +45,7 @@ export default function NavBar() {
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
+          <ProfileBtn />
         </NavigationMenu>
 
         {/* Right side */}
