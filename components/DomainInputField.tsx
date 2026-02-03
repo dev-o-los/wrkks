@@ -18,17 +18,20 @@ export default function DomainInputField() {
     queryFn: async () => getUserData(["username"]),
   });
 
+  const username = data?.username ?? "username";
+
   return (
     <div className="*:not-first:mt-2">
       <div className="flex rounded-md shadow-xs">
         <Input
           className="-me-px flex-1 rounded-e-none shadow-none focus-visible:z-10"
           id={id}
-          placeholder={error ? "username" : (data?.username ?? "username")}
+          placeholder={error ? "username" : username}
           disabled
           type="text"
         />
-        <EditDomainDialog />
+
+        <EditDomainDialog username={username} />
       </div>
     </div>
   );

@@ -10,19 +10,46 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { updateUserData } from "@/lib/supabase/updateUserData";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRef } from "react";
 import { Input } from "../ui/input";
 import PenIcon from "../ui/pen-icon";
+import { toastManager } from "../ui/toast";
 
-export default function EditDomainDialog() {
-  //     {
-  //   resume,
-  //   updateSkills,
-  // }: {
-  //   resume: Resume;
-  //   updateSkills: (skills: Partial<Skills>) => void;
-  // }
+export default function EditDomainDialog({ username }: { username: string }) {
   const ref = useRef<HTMLInputElement>(null);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (newUsername: string) =>
+      updateUserData({ username: newUsername }),
+
+    onSuccess: (updatedData: string) => {
+      toastManager.add({
+        title: "Username updated successfully!",
+        type: "success",
+      });
+      // refetch user data after update
+      queryClient.invalidateQueries({ queryKey: ["user-slug"] });
+      queryClient.setQueryData(["username"], updatedData);
+    },
+
+    onError: (err) => {
+      toastManager.add({
+        title: err.message,
+        type: "error",
+      });
+    },
+  });
+
+  const handleUpdate = () => {
+    if (ref.current?.value) {
+      mutation.mutate(ref.current.value.trim());
+    } else {
+      return;
+    }
+  };
 
   return (
     <AlertDialog>
@@ -43,15 +70,15 @@ export default function EditDomainDialog() {
           <AlertDialogDescription className="text-left pt-2 pb-1">
             Old Userhandle
           </AlertDialogDescription>
-          <Input ref={ref} placeholder="dev-o-los" />
+          <Input placeholder={username} disabled />
           <AlertDialogDescription className="text-left pt-2 pb-1">
             Choose new Userhandle
           </AlertDialogDescription>
-          <Input ref={ref} placeholder="dev-o-los" />
+          <Input ref={ref} placeholder={"New " + username} />
         </AlertDialogHeader>
         <AlertDialogFooter className="">
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Save</AlertDialogAction>
+          <AlertDialogAction onClick={handleUpdate}>Save</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
