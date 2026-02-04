@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use server";
-
-import { createClient } from "@/lib/supabase/server";
 import { auth } from "@clerk/nextjs/server";
+import { createClient } from "../server";
 
 // 👇 only allow real columns
-type UserField =
+export type UserField =
   | "id"
   | "email"
   | "username"
@@ -32,5 +29,6 @@ export async function getUserData(fields?: UserField[]) {
     return null;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return data as any;
 }

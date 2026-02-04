@@ -4,6 +4,7 @@ import { useResumeStore } from "@/hooks/stores/useResumeStore";
 import { normalizeResume } from "@/lib/helpers";
 import { useState } from "react";
 import AnimatedIconButton from "./AnimatedBtn";
+import { NotFoundPage } from "./NotFound";
 import { ResumeCard } from "./resume/ResumeCard";
 import { ResumeEditor } from "./resume/ResumeEditor";
 import EyeIcon from "./ui/eye-icon";
@@ -13,7 +14,9 @@ export default function ResumePreview() {
   const resume = useResumeStore((s) => s.resume);
   const [isEditMode, setisEditMode] = useState(false);
 
-  if (!resume) return <p>error</p>;
+  const normalizedResume = normalizeResume(resume);
+
+  if (!resume) return <NotFoundPage />;
 
   return (
     <div>
@@ -35,7 +38,7 @@ export default function ResumePreview() {
         {isEditMode ? (
           <ResumeEditor />
         ) : (
-          <ResumeCard resume={normalizeResume(resume)} />
+          <ResumeCard resume={normalizedResume} />
         )}
       </div>
     </div>

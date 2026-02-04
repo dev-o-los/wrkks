@@ -1,24 +1,26 @@
 "use client";
 
 import { useResumeStore } from "@/hooks/stores/useResumeStore";
-import { getUserData } from "@/lib/supabase/getUserData";
 import { publishResume } from "@/lib/supabase/resume/publishResume";
 import { Resume } from "@/lib/types";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { toastManager } from "./ui/toast";
 
-export function PublishButton() {
+export type LiveStatusAndUsername = {
+  islive: boolean;
+  username: string;
+};
+
+export default function PublishButton({
+  data,
+}: {
+  data?: LiveStatusAndUsername;
+}) {
   const resume = useResumeStore((s) => s.resume);
   const router = useRouter();
-  const queryClient = useQueryClient();
-
-  const { data } = useQuery({
-    queryKey: ["islive", "user-l"],
-    queryFn: async () => getUserData(["islive", "username"]),
-    placeholderData: { islive: false, username: "username" },
-  });
+  // const queryClient = useQueryClient();
 
   const islive = data?.islive ?? false;
   const username = (data?.username as string) ?? "/website";
@@ -35,11 +37,12 @@ export function PublishButton() {
             : "Resume unpublished successfully!",
         type: "success",
       });
+      router.refresh();
 
-      queryClient.setQueryData(["islive", "user-l"], {
-        islive: data !== null ? true : false,
-        username: resumeData !== null ? resumeData.username : "",
-      });
+      // queryClient.setQueryData(["islive", "user-l"], {
+      //   islive: data !== null ? true : false,
+      //   username: resumeData !== null ? resumeData.username : "",
+      // });
     },
     onError: (err) => {
       toastManager.add({
@@ -59,7 +62,7 @@ export function PublishButton() {
     }
 
     if (islive) {
-      router.push(username);
+      router.push(`/${username}`);
     } else {
       mutation.mutate(resume);
     }

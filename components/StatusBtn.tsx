@@ -1,16 +1,4 @@
-"use client";
-import { getUserData } from "@/lib/supabase/getUserData";
-import { useQuery } from "@tanstack/react-query";
-
-export default function StatusBtn() {
-  const { data } = useQuery({
-    queryKey: ["islive"],
-    queryFn: async () => getUserData(["islive"]),
-    placeholderData: { islive: false },
-  });
-
-  const islive = data?.islive ?? false;
-
+export default function StatusBtn({ islive }: { islive: boolean }) {
   return (
     <div className="flex items-center gap-1">
       <button className="flex items-center gap-1 hover:opacity-80 transition-opacity">

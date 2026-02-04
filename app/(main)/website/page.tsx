@@ -1,10 +1,16 @@
 import DomainInputField from "@/components/DomainInputField";
-import { PublishButton } from "@/components/PublishBtn";
+import PublishButton, { LiveStatusAndUsername } from "@/components/PublishBtn";
 import ResumePreview from "@/components/ResumePreview";
 import StatusBtn from "@/components/StatusBtn";
 import LinkIcon from "@/components/ui/link-icon";
+import { getUserData } from "@/lib/supabase/user/getUserData";
 
-export default function WebSite() {
+export default async function WebSite() {
+  const userdata: LiveStatusAndUsername = await getUserData([
+    "username",
+    "islive",
+  ]);
+
   return (
     <div>
       <div className="flex mt-12 text-lg text-center flex-col justify-center items-center">
@@ -12,11 +18,11 @@ export default function WebSite() {
           <div className="flex gap-1.5 items-center max-[915px]:text-sm">
             <LinkIcon size={17} className="mt-1" />
             <div>wrkks.vercel.app&nbsp;/</div>
-            <DomainInputField />
+            <DomainInputField username={userdata.username} />
           </div>
           <div className="gap-2.5 flex justify-center tracking-wide max-[915px]:mt-4">
-            <StatusBtn />
-            <PublishButton />
+            <StatusBtn islive={userdata.islive} />
+            <PublishButton data={userdata} />
           </div>
         </div>
         <ResumePreview />

@@ -135,13 +135,7 @@ export default function RootLayout({
     ],
   };
   return (
-    <ClerkProvider
-      appearance={{
-        layout: {
-          unsafe_disableDevelopmentModeWarnings: true,
-        },
-      }}
-    >
+    <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
           className={`${bricolage.className} ${geistMono.variable} antialiased`}

@@ -10,7 +10,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { updateUserData } from "@/lib/supabase/updateUserData";
+import { updateUser } from "@/lib/supabase/user/updateUserData";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRef } from "react";
 import { Input } from "../ui/input";
@@ -22,9 +22,7 @@ export default function EditDomainDialog({ username }: { username: string }) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (newUsername: string) =>
-      updateUserData({ username: newUsername }),
-
+    mutationFn: (newUsername: string) => updateUser({ username: newUsername }),
     onSuccess: (updatedData: string) => {
       toastManager.add({
         title: "Username updated successfully!",
