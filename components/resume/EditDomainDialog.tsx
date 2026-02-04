@@ -11,7 +11,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { updateUser } from "@/lib/supabase/user/updateUserData";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { Input } from "../ui/input";
 import PenIcon from "../ui/pen-icon";
@@ -19,18 +20,16 @@ import { toastManager } from "../ui/toast";
 
 export default function EditDomainDialog({ username }: { username: string }) {
   const ref = useRef<HTMLInputElement>(null);
-  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const mutation = useMutation({
     mutationFn: (newUsername: string) => updateUser({ username: newUsername }),
-    onSuccess: (updatedData: string) => {
+    onSuccess: () => {
       toastManager.add({
         title: "Username updated successfully!",
         type: "success",
       });
-      // refetch user data after update
-      queryClient.invalidateQueries({ queryKey: ["user-slug"] });
-      queryClient.setQueryData(["username"], updatedData);
+      router.refresh();
     },
 
     onError: (err) => {

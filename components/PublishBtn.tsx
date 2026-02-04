@@ -20,7 +20,6 @@ export default function PublishButton({
 }) {
   const resume = useResumeStore((s) => s.resume);
   const router = useRouter();
-  // const queryClient = useQueryClient();
 
   const islive = data?.islive ?? false;
   const username = (data?.username as string) ?? "/website";
@@ -38,11 +37,6 @@ export default function PublishButton({
         type: "success",
       });
       router.refresh();
-
-      // queryClient.setQueryData(["islive", "user-l"], {
-      //   islive: data !== null ? true : false,
-      //   username: resumeData !== null ? resumeData.username : "",
-      // });
     },
     onError: (err) => {
       toastManager.add({
