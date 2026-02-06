@@ -15,7 +15,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
   { href: "/", label: <HomeIcon />, text: "Home" },
-  // { href: "/error", label: <UserIcon /> },
   { href: "/upload", label: <ArrowBigUpDashIcon />, text: "Upload" },
 ];
 
@@ -77,6 +76,7 @@ export default function NavBar() {
                       </NavigationMenuItem>
                     );
                   })}
+                  <ProfileBtn isMobile />
                 </NavigationMenuList>
               </NavigationMenu>
             </PopoverContent>
