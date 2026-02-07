@@ -22,7 +22,7 @@ const siteConfig = {
   name: "Wrkks",
   description:
     "Turn your resume into a stunning personal website in seconds. Import from LinkedIn or PDF to create a professional online presence instantly—no coding required.",
-  url: process.env.SITE_URL ?? "https://wrkks.vercel.app", // Replace with your production URL
+  url: process.env.NEXT_PUBLIC_BASE_URL ?? "https://wrkks.site", // Replace with your production URL
   ogImage: "/og-image.png",
   links: {
     twitter: "https://twitter.com/utkarshdev_",
