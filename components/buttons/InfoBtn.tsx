@@ -5,8 +5,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Image from "next/image";
-import AnimatedIconButton from "./AnimatedBtn";
 import QuestionMark from "../ui/question-mark";
+import AnimatedIconButton from "./AnimatedBtn";
 
 export default function InfoDialog({ gifUrl }: { gifUrl: string }) {
   return (
@@ -17,7 +17,7 @@ export default function InfoDialog({ gifUrl }: { gifUrl: string }) {
             icon={<QuestionMark />}
             className="px-3 py-1 border rounded-md text-sm"
           >
-            How to use linked ?
+            How to use linkedin
           </AnimatedIconButton>
         </DialogTrigger>
 
