@@ -4,6 +4,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import Link from "next/link";
 import ProfileBtn from "./buttons/ProfileBtn";
 import SignUpBtn from "./buttons/SignUpBtn";
 import { ThemeToggle } from "./ThemeToggle";
@@ -70,7 +71,7 @@ export default function NavBar() {
                           className="flex-row items-center gap-2 py-1.5"
                           href={link.href}
                         >
-                          <span className="flex gap-2.5">
+                          <span className="flex gap-2.5 items-center">
                             {link.label}
                             {link.text}
                           </span>
@@ -84,12 +85,12 @@ export default function NavBar() {
             </PopoverContent>
           </Popover>
           {/* Left side */}
-          <a
+          <Link
             className="text-primary tracking-wide font-semibold hover:text-primary/90"
-            href="#"
+            href="/"
           >
             Wrkks
-          </a>
+          </Link>
         </div>
 
         {/* Center navigation */}
