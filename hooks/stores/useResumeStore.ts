@@ -1,5 +1,6 @@
 "use client";
 
+import { getUserDataClient } from "@/lib/supabase/user/getUserDataClient";
 import { Resume } from "@/lib/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -21,6 +22,7 @@ type ResumeStore = {
 
   updateExtracurricular: (extracurricular: Resume["extracurricular"]) => void;
   updateCustomSections: (customSections: Resume["customSections"]) => void;
+  fetchResume: () => Promise<null>;
 
   reset: () => void;
 };
@@ -89,6 +91,20 @@ export const useResumeStore = create<ResumeStore>()(
         set((state) => ({
           resume: state.resume ? { ...state.resume, customSections } : null,
         })),
+
+      fetchResume: async () => {
+        try {
+          const resumeFromDB = (await getUserDataClient(["resume"]))
+            .resume as Resume | null;
+          if (!resumeFromDB) return null;
+
+          set({ resume: resumeFromDB });
+          return null;
+        } catch (error) {
+          console.error("Error fetching: ", error);
+          return null;
+        }
+      },
 
       reset: () => set({ rawText: "", resume: null }),
     }),

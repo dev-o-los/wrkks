@@ -3,8 +3,10 @@
 import { useResumeStore } from "@/hooks/stores/useResumeStore";
 import { normalizeResume } from "@/lib/helpers";
 import { useUser } from "@clerk/nextjs";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import AnimatedIconButton from "../buttons/AnimatedBtn";
+import Loading from "../loading";
 import { NotFoundPage } from "../NotFound";
 import EyeIcon from "../ui/eye-icon";
 import PenIcon from "../ui/pen-icon";
@@ -13,12 +15,20 @@ import { ResumeEditor } from "./ResumeEditor";
 
 export default function ResumePreview() {
   const resume = useResumeStore((s) => s.resume);
+  const fetchResume = useResumeStore((s) => s.fetchResume);
   const [isEditMode, setisEditMode] = useState(false);
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
-  const normalizedResume = normalizeResume(resume);
+  const { isLoading } = useQuery({
+    queryKey: ["resume-data"],
+    queryFn: fetchResume,
+    enabled: !!user && !resume,
+  });
+
+  if (!isLoaded || isLoading) return <Loading />;
 
   if (!resume || !user) return <NotFoundPage />;
+  const normalizedResume = normalizeResume(resume);
 
   return (
     <div>
