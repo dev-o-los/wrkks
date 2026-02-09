@@ -151,7 +151,7 @@ export default function RootLayout({
                   disableTransitionOnChange
                 >
                   <SyncUser />
-                  {children}
+                  <main>{children}</main>
                   <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

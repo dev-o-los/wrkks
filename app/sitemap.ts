@@ -1,20 +1,19 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://wrkks.site";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://wrkks.site";
 
   return [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "daily", // Change to daily for new apps
       priority: 1,
     },
-    // Add other routes as you build them, e.g., /templates, /blog
     {
       url: `${baseUrl}/upload`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
     },
   ];
