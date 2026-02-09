@@ -10,7 +10,7 @@ import { useParams } from "next/navigation";
 export default function UserPage() {
   const params = useParams();
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isPending, isError } = useQuery({
     queryKey: ["user-resume"],
     queryFn: () => getUserResumeAndClerkId(params.slug as string),
   });
@@ -19,7 +19,7 @@ export default function UserPage() {
     !data?.resume ||
     (typeof data.resume === "object" && Object.keys(data.resume).length === 0);
 
-  if (isLoading) return <Loading />;
+  if (isPending) return <Loading />;
   if (isError || !data?.resume || isEmptyResume || !data.clerk_user_id)
     return <NotFoundPage />;
 
