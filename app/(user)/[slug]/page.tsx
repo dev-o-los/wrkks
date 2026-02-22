@@ -2,7 +2,8 @@
 
 import Loading from "@/components/loading";
 import { NotFoundPage } from "@/components/NotFound";
-import { ResumeCard } from "@/components/resume/ResumeCard";
+import BentoResumeCard from "@/components/resume/BentoResumeCard";
+// import { ResumeCard } from "@/components/resume/ResumeCard";
 import { getUserResumeAndClerkId } from "@/lib/supabase/resume/getResume";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
@@ -23,5 +24,6 @@ export default function UserPage() {
   if (isError || !data?.resume || isEmptyResume || !data.clerk_user_id)
     return <NotFoundPage />;
 
-  return <ResumeCard resume={data.resume} clerkId={data.clerk_user_id} />;
+  // return <ResumeCard resume={data.resume} clerkId={data.clerk_user_id} />;
+  return <BentoResumeCard />;
 }
