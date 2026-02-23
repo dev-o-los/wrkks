@@ -25,5 +25,5 @@ export default function UserPage() {
     return <NotFoundPage />;
 
   // return <ResumeCard resume={data.resume} clerkId={data.clerk_user_id} />;
-  return <BentoResumeCard />;
+  return <BentoResumeCard userid={data.clerk_user_id} />;
 }

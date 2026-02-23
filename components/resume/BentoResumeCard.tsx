@@ -11,28 +11,62 @@ import {
   Terminal,
   Twitter,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import ResumeImage from "./ResumeImage";
 
-export default function BentoResume() {
+export default function BentoResume({ userid }: { userid: string }) {
   const resume = resume_x;
 
   // --- CONFIGURABLE THEME ---
   const theme = {
-    accent: "emerald", // Main brand color (e.g., blue, violet, rose, amber)
-    background: "#050505", // Page background hex
+    accent: "blue" as const, // Options: "red", "blue", "violet", "rose", "amber", "emerald"
+    background: "#050505",
     cardBg: "bg-neutral-900/40",
     cardBorder: "border-neutral-800/60",
     cardHover: "hover:border-neutral-700/50",
-    spotify: "#1DB954", // Spotify brand color
   };
 
-  // Helper variables for Tailwind dynamic classes
-  const accentText = `text-${theme.accent}-400`;
-  const accentBg = `bg-${theme.accent}-500/10`;
-  const accentBorder = `border-${theme.accent}-500/20`;
-  const accentIcon = `text-${theme.accent}-500`;
-  const accentSelection = `selection:bg-${theme.accent}-500/30`;
+  // TAILWIND MAPPER: This ensures Tailwind picks up the classes
+  const accentMap = {
+    red: {
+      text: "text-red-400",
+      bg: "bg-red-500/10",
+      border: "border-red-500/20",
+      icon: "text-red-500",
+      selection: "selection:bg-red-500/30",
+      hoverText: "group-hover:text-red-400",
+      timeline: "group-hover/item:bg-red-500",
+    },
+    blue: {
+      text: "text-blue-400",
+      bg: "bg-blue-500/10",
+      border: "border-blue-500/20",
+      icon: "text-blue-500",
+      selection: "selection:bg-blue-500/30",
+      hoverText: "group-hover:text-blue-400",
+      timeline: "group-hover/item:bg-blue-500",
+    },
+    violet: {
+      text: "text-violet-400",
+      bg: "bg-violet-500/10",
+      border: "border-violet-500/20",
+      icon: "text-violet-500",
+      selection: "selection:bg-violet-500/30",
+      hoverText: "group-hover:text-violet-400",
+      timeline: "group-hover/item:bg-violet-500",
+    },
+    amber: {
+      text: "text-amber-400",
+      bg: "bg-amber-500/10",
+      border: "border-amber-500/20",
+      icon: "text-amber-500",
+      selection: "selection:bg-amber-500/30",
+      hoverText: "group-hover:text-amber-400",
+      timeline: "group-hover/item:bg-amber-500",
+    },
+  };
+
+  const activeAccent = accentMap[theme.accent] || accentMap.red;
 
   if (!resume) return null;
 
@@ -48,7 +82,7 @@ export default function BentoResume() {
 
   return (
     <div
-      className={`min-h-screen text-neutral-200  ${accentSelection}`}
+      className={`min-h-screen text-neutral-200 ${activeAccent.selection}`}
       style={{ backgroundColor: theme.background }}
     >
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -63,7 +97,7 @@ export default function BentoResume() {
             <div className="relative z-10">
               {personalInfo?.title && (
                 <span
-                  className={`inline-block px-3 py-1 rounded-full ${accentBg} ${accentText} text-[10px] font-bold uppercase tracking-widest mb-4 border ${accentBorder}`}
+                  className={`inline-block px-3 py-1 rounded-full ${activeAccent.bg} ${activeAccent.text} text-[10px] font-bold uppercase tracking-widest mb-4 border ${activeAccent.border}`}
                 >
                   Available for 2026 Internships
                 </span>
@@ -84,20 +118,9 @@ export default function BentoResume() {
             className={`md:col-span-2 lg:col-span-4 lg:row-span-2 ${theme.cardBg} border ${theme.cardBorder} rounded-3xl flex items-center justify-center ${theme.cardHover} transition-all group overflow-hidden`}
           >
             <div
-              className={`w-32 h-32 md:w-40 md:h-40 rounded-full bg-linear-to-br from-neutral-800 to-neutral-950 border border-neutral-700/50 flex items-center justify-center text-5xl font-black text-neutral-400 group-hover:scale-105 group-hover:${accentText} transition-all duration-500 shadow-2xl overflow-hidden`}
+              className={`w-32 h-32 md:w-40 md:h-40 rounded-full bg-linear-to-br from-neutral-800 to-neutral-950 border border-neutral-700/50 flex items-center justify-center text-5xl font-black text-neutral-400 group-hover:scale-105 ${activeAccent.text} transition-all duration-500 shadow-2xl overflow-hidden`}
             >
-              {personalInfo?.imageUrl ? (
-                <Image
-                  src={personalInfo.imageUrl}
-                  alt={personalInfo.name}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                personalInfo?.name
-                  ?.split(" ")
-                  .map((n) => n[0])
-                  .join("") || "?"
-              )}
+              <ResumeImage userid={userid} removeDecoration />
             </div>
           </div>
 
@@ -106,7 +129,7 @@ export default function BentoResume() {
             className={`md:col-span-2 lg:col-span-4 ${theme.cardBg} border ${theme.cardBorder} rounded-3xl p-6 flex flex-col justify-between ${theme.cardHover} transition-all`}
           >
             <div className="flex items-center gap-2 text-neutral-400 text-sm">
-              <MapPin size={18} className={accentIcon} />
+              <MapPin size={18} className={activeAccent.icon} />
               {personalInfo?.location || "Remote"}
             </div>
             <div className="flex flex-wrap gap-3 mt-4">
@@ -166,32 +189,6 @@ export default function BentoResume() {
             </div>
           )}
 
-          {/* --- SPOTIFY (Extractable Brand Color) --- */}
-          <div
-            style={{
-              backgroundColor: `${theme.spotify}0D`,
-              borderColor: `${theme.spotify}33`,
-            }}
-            className="md:col-span-2 lg:col-span-4 border rounded-3xl p-10 flex flex-col items-center justify-center text-center group hover:bg-opacity-10 transition-all"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className="h-12 w-12 mb-4 group-hover:scale-110 transition-transform"
-              style={{ fill: theme.spotify }}
-            >
-              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.491 17.293c-.215.354-.675.464-1.03.249-2.863-1.748-6.468-2.144-10.713-1.175-.404.093-.811-.161-.904-.565-.093-.404.161-.811.565-.904 4.646-1.064 8.623-.613 11.833 1.343.354.215.464.675.249 1.032zm1.465-3.264c-.27.44-.846.58-1.287.31-3.275-2.013-8.266-2.595-12.138-1.42-.496.15-1.022-.13-1.173-.626-.15-.496.13-1.022.626-1.172 4.428-1.344 9.919-.687 13.66 1.613.44.27.58.847.312 1.295zm.127-3.414c-3.928-2.333-10.414-2.548-14.195-1.402-.603.183-1.237-.163-1.42-.766-.183-.603.163-1.237.766-1.42 4.34-1.318 11.503-1.067 16.012 1.61.543.322.72 1.025.398 1.568-.323.543-1.025.72-1.561.41z" />
-            </svg>
-            <p
-              style={{ color: theme.spotify }}
-              className="text-[10px] font-bold uppercase tracking-widest"
-            >
-              Focus Mode
-            </p>
-            <p className="text-white font-medium text-base mt-1 italic">
-              Building the future...
-            </p>
-          </div>
-
           {/* --- TECH STACK --- */}
           {(skills?.frameworksAndTools?.length > 0 ||
             skills?.languages?.length > 0) && (
@@ -213,7 +210,7 @@ export default function BentoResume() {
                 {skills.languages?.map((lang, i) => (
                   <span
                     key={i}
-                    className={`px-3 py-1.5 ${accentBg} border ${accentBorder} rounded-lg text-xs ${accentText} font-medium`}
+                    className={`px-3 py-1.5 ${activeAccent.bg} border ${activeAccent.border} rounded-lg text-xs ${activeAccent.text} font-medium`}
                   >
                     {lang}
                   </span>
@@ -237,14 +234,16 @@ export default function BentoResume() {
                     className="relative pl-6 border-l border-neutral-800 group/item"
                   >
                     <div
-                      className={`absolute -left-1.25 top-0 h-2.5 w-2.5 rounded-full bg-neutral-700 group-hover/item:${accentIcon.replace("text-", "bg-")} transition-colors`}
+                      className={`absolute -left-1.25 top-0 h-2.5 w-2.5 rounded-full bg-neutral-700 transition-colors ${activeAccent.timeline}`}
                     />
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
                       <div>
                         <h4 className="text-white font-bold text-lg">
                           {exp.position}
                         </h4>
-                        <p className={`${accentText} text-sm font-medium`}>
+                        <p
+                          className={`${activeAccent.text} text-sm font-medium`}
+                        >
                           {exp.company}
                         </p>
                       </div>
@@ -280,7 +279,7 @@ export default function BentoResume() {
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <div
-                    className={`p-2 bg-neutral-800 rounded-lg ${accentText}`}
+                    className={`p-2 bg-neutral-800 rounded-lg ${activeAccent.text}`}
                   >
                     <Terminal size={20} />
                   </div>
@@ -295,7 +294,7 @@ export default function BentoResume() {
                   )}
                 </div>
                 <h3
-                  className={`text-xl font-bold text-white group-hover:${accentText} transition-colors`}
+                  className={`text-xl font-bold text-white ${activeAccent.hoverText} transition-colors`}
                 >
                   {proj.name}
                 </h3>

@@ -14,7 +14,13 @@ async function fetchUserImage(userId: string): Promise<string | null> {
   return data.imageUrl;
 }
 
-export default function ResumeImage({ userid }: { userid: string }) {
+export default function ResumeImage({
+  userid,
+  removeDecoration = false,
+}: {
+  userid: string;
+  removeDecoration?: boolean;
+}) {
   const { data: imageUrl } = useQuery({
     queryKey: ["user-image", userid],
     queryFn: () => fetchUserImage(userid),
@@ -23,7 +29,18 @@ export default function ResumeImage({ userid }: { userid: string }) {
 
   if (!imageUrl) return null;
 
-  return (
+  return removeDecoration ? (
+    <div className="relative size-full">
+      <Image
+        src={imageUrl}
+        alt="User profile image"
+        fill
+        className="object-cover"
+        sizes="112px"
+        priority
+      />
+    </div>
+  ) : (
     <div className="relative w-24 h-24 rounded-xl bg-muted border border-border shrink-0">
       <div className="w-full h-full absolute overflow-hidden rounded-xl">
         <Image
