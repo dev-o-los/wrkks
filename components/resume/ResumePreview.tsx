@@ -10,6 +10,7 @@ import Loading from "../loading";
 import { NotFoundPage } from "../NotFound";
 import EyeIcon from "../ui/eye-icon";
 import PenIcon from "../ui/pen-icon";
+import WebsiteStyleSelector from "../WebsiteStylesSelector";
 import { ResumeCard } from "./ResumeCard";
 import { ResumeEditor } from "./ResumeEditor";
 
@@ -45,6 +46,7 @@ export default function ResumePreview() {
         >
           Edit
         </AnimatedIconButton>
+        <WebsiteStyleSelector />
       </div>
       <div className="min-h-screen justify-center flex py-12 px-4">
         {isEditMode ? (
