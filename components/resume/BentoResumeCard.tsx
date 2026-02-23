@@ -3,15 +3,15 @@ import {
   Award,
   Cpu,
   ExternalLink,
-  Github,
   Globe,
-  Linkedin,
-  Mail,
   MapPin,
   Terminal,
-  Twitter,
 } from "lucide-react";
 import Link from "next/link";
+import GithubIcon from "../ui/github-icon";
+import GmailIcon from "../ui/gmail-icon";
+import LinkedinIcon from "../ui/linkedin-icon";
+import TwitterXIcon from "../ui/twitter-x-icon";
 import ResumeImage from "./ResumeImage";
 
 export default function BentoResume({ userid }: { userid: string }) {
@@ -135,22 +135,22 @@ export default function BentoResume({ userid }: { userid: string }) {
             <div className="flex flex-wrap gap-3 mt-4">
               {[
                 {
-                  icon: <Github size={20} />,
+                  icon: <GithubIcon />,
                   href: personalInfo?.github,
                   prefix: "https://github.com/",
                 },
                 {
-                  icon: <Linkedin size={20} />,
+                  icon: <LinkedinIcon />,
                   href: personalInfo?.linkedin,
                   prefix: "https://linkedin.com/in/",
                 },
                 {
-                  icon: <Twitter size={20} />,
+                  icon: <TwitterXIcon />,
                   href: personalInfo?.twitter,
                   prefix: "https://twitter.com/",
                 },
                 {
-                  icon: <Mail size={20} />,
+                  icon: <GmailIcon />,
                   href: personalInfo?.email,
                   prefix: "mailto:",
                 },
