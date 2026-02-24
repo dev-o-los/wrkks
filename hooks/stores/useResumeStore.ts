@@ -115,7 +115,6 @@ export const useResumeStore = create<ResumeStore>()(
       websiteStyle: "simple",
       setWebsiteStyle: (style) => {
         set({ websiteStyle: style });
-
         updateUser({ style: style });
       },
 
@@ -127,6 +126,7 @@ export const useResumeStore = create<ResumeStore>()(
       partialize: (state) => ({
         rawText: state.rawText,
         resume: state.resume,
+        websiteStyle: state.websiteStyle,
       }),
     },
   ),
