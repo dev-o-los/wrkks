@@ -1,7 +1,6 @@
 "use client";
 
 import { ChevronDownIcon } from "lucide-react";
-import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,9 +10,11 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useResumeStore, WebsiteStyle } from "@/hooks/stores/useResumeStore";
 
 export default function WebsiteStyleSelector() {
-  const [framework, setFramework] = useState("resume-style");
+  const websiteStyle = useResumeStore((s) => s.websiteStyle);
+  const setWebsiteStyle = useResumeStore((s) => s.setWebsiteStyle);
 
   return (
     <DropdownMenu>
@@ -28,11 +29,14 @@ export default function WebsiteStyleSelector() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuRadioGroup onValueChange={setFramework} value={framework}>
-          <DropdownMenuRadioItem value="resume-style">
+        <DropdownMenuRadioGroup
+          onValueChange={(val) => setWebsiteStyle(val as WebsiteStyle)}
+          value={websiteStyle}
+        >
+          <DropdownMenuRadioItem value="simple">
             Simple Style
           </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="bento-style">
+          <DropdownMenuRadioItem value="bento">
             Bento Style
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>

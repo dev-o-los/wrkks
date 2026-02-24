@@ -5,6 +5,8 @@ import { Resume } from "@/lib/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+export type WebsiteStyle = "simple" | "bento";
+
 type ResumeStore = {
   rawText: string;
   resume: Resume | null;
@@ -23,6 +25,9 @@ type ResumeStore = {
   updateExtracurricular: (extracurricular: Resume["extracurricular"]) => void;
   updateCustomSections: (customSections: Resume["customSections"]) => void;
   fetchResume: () => Promise<null>;
+
+  websiteStyle: WebsiteStyle;
+  setWebsiteStyle: (style: WebsiteStyle) => void;
 
   reset: () => void;
 };
@@ -105,6 +110,9 @@ export const useResumeStore = create<ResumeStore>()(
           return null;
         }
       },
+
+      websiteStyle: "simple",
+      setWebsiteStyle: (style) => set({ websiteStyle: style }),
 
       reset: () => set({ rawText: "", resume: null }),
     }),

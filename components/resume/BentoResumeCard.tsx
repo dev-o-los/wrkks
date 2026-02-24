@@ -23,7 +23,8 @@ export default function BentoResume({ userid }: { userid: string }) {
     accent: "blue" as const,
     cardHover: "hover:border-neutral-400 dark:hover:border-neutral-700/50",
     // Base layout colors that adapt to system theme
-    layout: "bg-white dark:bg-[#050505] text-neutral-900 dark:text-neutral-200",
+    layout:
+      "bg-white dark:bg-background text-neutral-900 dark:text-neutral-200",
     card: "bg-neutral-50/50 dark:bg-neutral-900/40 border-neutral-200 dark:border-neutral-800/60",
   };
 
@@ -88,7 +89,7 @@ export default function BentoResume({ userid }: { userid: string }) {
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 auto-rows-[minmax(140px,auto)] grid-flow-dense">
           {/* --- HERO SECTION --- */}
           <div
-            className={`md:col-span-4 lg:col-span-8 lg:row-span-2 border rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group ${theme.card} ${theme.cardHover} transition-all`}
+            className={`md:col-span-4 lg:col-span-8 lg:row-span-2 border text-left rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group ${theme.card} ${theme.cardHover} transition-all`}
           >
             <div className="absolute top-6 right-8 opacity-5 dark:opacity-10 group-hover:opacity-20 transition-opacity text-neutral-900 dark:text-white">
               <Cpu size={120} />
