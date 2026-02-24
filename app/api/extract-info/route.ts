@@ -106,6 +106,7 @@ ${text}
       );
     }
     const parsedJSON = JSON.parse(raw);
+    console.log(parsedJSON);
 
     return NextResponse.json(parsedJSON);
   } catch (error) {

@@ -10,12 +10,15 @@ import Loading from "../loading";
 import { NotFoundPage } from "../NotFound";
 import EyeIcon from "../ui/eye-icon";
 import PenIcon from "../ui/pen-icon";
+import WebsiteStyleSelector from "../WebsiteStylesSelector";
+import BentoResume from "./BentoResumeCard";
 import { ResumeCard } from "./ResumeCard";
 import { ResumeEditor } from "./ResumeEditor";
 
 export default function ResumePreview() {
   const resume = useResumeStore((s) => s.resume);
   const fetchResume = useResumeStore((s) => s.fetchResume);
+  const websiteStyle = useResumeStore((s) => s.websiteStyle);
   const [isEditMode, setisEditMode] = useState(false);
   const { user, isLoaded } = useUser();
 
@@ -31,8 +34,8 @@ export default function ResumePreview() {
   const normalizedResume = normalizeResume(resume);
 
   return (
-    <div>
-      <div className="flex tracking-wide justify-start gap-2.5 max-sm:w-full md:w-[80vw] max-sm:px-6">
+    <div className="">
+      <div className="flex tracking-wide justify-start gap-2.5 w-[80vw] mx-12">
         <AnimatedIconButton
           onClick={() => setisEditMode(false)}
           icon={<EyeIcon className="-me-0.5" />}
@@ -45,10 +48,13 @@ export default function ResumePreview() {
         >
           Edit
         </AnimatedIconButton>
+        <WebsiteStyleSelector />
       </div>
-      <div className="min-h-screen justify-center flex py-12 px-4">
+      <div className="min-h-screen justify-center flex py-6 px-4">
         {isEditMode ? (
           <ResumeEditor />
+        ) : websiteStyle === "bento" ? (
+          <BentoResume resume={normalizedResume} userid={user.id} />
         ) : (
           <ResumeCard resume={normalizedResume} clerkId={user.id} />
         )}

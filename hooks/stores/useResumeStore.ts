@@ -1,9 +1,12 @@
 "use client";
 
 import { getUserDataClient } from "@/lib/supabase/user/getUserDataClient";
+import { updateUser } from "@/lib/supabase/user/updateUserData";
 import { Resume } from "@/lib/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+
+export type WebsiteStyle = "simple" | "bento";
 
 type ResumeStore = {
   rawText: string;
@@ -23,6 +26,9 @@ type ResumeStore = {
   updateExtracurricular: (extracurricular: Resume["extracurricular"]) => void;
   updateCustomSections: (customSections: Resume["customSections"]) => void;
   fetchResume: () => Promise<null>;
+
+  websiteStyle: WebsiteStyle;
+  setWebsiteStyle: (style: WebsiteStyle) => void;
 
   reset: () => void;
 };
@@ -106,6 +112,12 @@ export const useResumeStore = create<ResumeStore>()(
         }
       },
 
+      websiteStyle: "simple",
+      setWebsiteStyle: (style) => {
+        set({ websiteStyle: style });
+        updateUser({ style: style });
+      },
+
       reset: () => set({ rawText: "", resume: null }),
     }),
     {
@@ -114,6 +126,7 @@ export const useResumeStore = create<ResumeStore>()(
       partialize: (state) => ({
         rawText: state.rawText,
         resume: state.resume,
+        websiteStyle: state.websiteStyle,
       }),
     },
   ),
