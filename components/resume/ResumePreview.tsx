@@ -54,7 +54,7 @@ export default function ResumePreview() {
         {isEditMode ? (
           <ResumeEditor />
         ) : websiteStyle === "bento" ? (
-          <BentoResume userid={user.id} />
+          <BentoResume resume={normalizedResume} userid={user.id} />
         ) : (
           <ResumeCard resume={normalizedResume} clerkId={user.id} />
         )}

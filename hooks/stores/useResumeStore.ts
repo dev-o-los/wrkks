@@ -1,6 +1,7 @@
 "use client";
 
 import { getUserDataClient } from "@/lib/supabase/user/getUserDataClient";
+import { updateUser } from "@/lib/supabase/user/updateUserData";
 import { Resume } from "@/lib/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -112,7 +113,11 @@ export const useResumeStore = create<ResumeStore>()(
       },
 
       websiteStyle: "simple",
-      setWebsiteStyle: (style) => set({ websiteStyle: style }),
+      setWebsiteStyle: (style) => {
+        set({ websiteStyle: style });
+
+        updateUser({ style: style });
+      },
 
       reset: () => set({ rawText: "", resume: null }),
     }),

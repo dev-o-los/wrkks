@@ -6,16 +6,17 @@ import { createClient } from "../server";
 type UserResumeResponse = {
   resume: Resume | null;
   clerk_user_id: string;
+  style: string | null;
 };
 
-export async function getUserResumeAndClerkId(
+export async function getUserWrkkDetails(
   username: string,
 ): Promise<UserResumeResponse> {
   const supabase = await createClient();
 
   const { data, error } = await supabase
     .from("users")
-    .select("resume,clerk_user_id")
+    .select("resume,clerk_user_id,style")
     .eq("username", username)
     .single();
 

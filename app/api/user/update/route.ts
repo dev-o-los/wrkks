@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 // allowed fields
-type UserField = "email" | "username" | "resume" | "islive";
+type UserField = "email" | "username" | "resume" | "islive" | "style";
 
 // values to update
 export type UpdateUserData = Partial<Record<UserField, any>>;

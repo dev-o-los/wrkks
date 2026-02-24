@@ -1,4 +1,4 @@
-import { resume_x } from "@/output";
+import { Resume } from "@/lib/types";
 import {
   Award,
   Cpu,
@@ -15,9 +15,13 @@ import LinkedinIcon from "../ui/linkedin-icon";
 import TwitterXIcon from "../ui/twitter-x-icon";
 import ResumeImage from "./ResumeImage";
 
-export default function BentoResume({ userid }: { userid: string }) {
-  const resume = resume_x;
-
+export default function BentoResume({
+  userid,
+  resume,
+}: {
+  userid: string;
+  resume: Resume;
+}) {
   // --- CONFIGURABLE THEME ---
   const theme = {
     accent: "blue" as const,
