@@ -322,7 +322,7 @@ Full documentation is available at **[dev-o-los-wrkks.mintlify.app](https://dev-
 
 ## License
 
-This project is licensed under the terms found in the [LICENSE](./LICENSE) file.
+This project is licensed under the terms found in the [LICENSE](./LICENSE.md) file.
 
 ---
 
