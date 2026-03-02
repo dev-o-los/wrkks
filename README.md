@@ -144,23 +144,16 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the r
 Create a `.env.local` file in the root directory. Below are the variables you'll need to configure. Refer to the [Environment Variables docs](https://dev-o-los-wrkks.mintlify.app/deployment/environment-variables) for the full and up-to-date list.
 
 ```env
-# AI / PDF Parsing
-AI_API_KEY=your_ai_provider_api_key
+OPENROUTER_API_KEY=
+OPENROUTER_MODEL_NAME=
 
-# Database
-DATABASE_URL=your_database_connection_string
+NEXT_PUBLIC_BASE_URL="http://localhost:3000"
 
-# Authentication
-NEXTAUTH_SECRET=your_nextauth_secret
-NEXTAUTH_URL=http://localhost:3000
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
-# Storage (for PDF uploads)
-STORAGE_BUCKET=your_storage_bucket_name
-STORAGE_KEY=your_storage_access_key
-STORAGE_SECRET=your_storage_secret_key
-
-# App
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=
 ```
 
 > ⚠️ Never commit your `.env.local` file. It is already listed in `.gitignore`.
