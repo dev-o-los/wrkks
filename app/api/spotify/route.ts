@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as spotifyUrlInfo from "spotify-url-info";
 
-const spotify = (spotifyUrlInfo.default || spotifyUrlInfo)(fetch);
+const spotify =
+  (spotifyUrlInfo as any).default?.(fetch) || (spotifyUrlInfo as any)(fetch);
 const { getPreview } = spotify as {
   getPreview: (url: string) => Promise<{
     title: string;

@@ -11,8 +11,8 @@
 !.yarn/versions
 
 google.pdf
-output.json
-output2.json
+output.*
+
 
 # testing
 /coverage
