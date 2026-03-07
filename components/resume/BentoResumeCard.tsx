@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import BentoThemeToggleBtn from "../buttons/BentoThemeToggleBtn";
+import { SpotifyCard } from "../spotify-card";
 import GithubIcon from "../ui/github-icon";
 import GmailIcon from "../ui/gmail-icon";
 import LinkedinIcon from "../ui/linkedin-icon";
@@ -116,6 +117,10 @@ export default function BentoResume({
               )}
             </div>
           </div>
+          <SpotifyCard
+            url="https://open.spotify.com/track/7J34pk34Aw4U5J7cL5XO98?si=33425254569a451f"
+            className="md:col-span-4 p-6 rounded-3xl"
+          />
 
           {/* --- PROFILE PHOTO --- */}
           <div
