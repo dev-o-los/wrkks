@@ -156,7 +156,20 @@ export const ResumeEditor = () => {
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div>
+              <label className={labelClass}>
+                Spotify Link (Only for bento style)
+              </label>
+              <Input
+                value={resume.personalInfo.spotifyUrl}
+                placeholder="https://open.spotify.com/track/5hzuO0DOsv3sJD2oCxk7Uy?si=61ef8fc69c2744f0"
+                onChange={(e) =>
+                  updatePersonalInfo({ spotifyUrl: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="space-y-4 mt-4">
               <p className="text-sm text-start font-medium text-muted-foreground uppercase tracking-wider text-[10px]">
                 Social Links
               </p>

@@ -14,6 +14,7 @@ export function normalizeResume(raw: any): Resume {
       github: raw?.personalInfo?.github ?? "",
       twitter: raw?.personalInfo?.twitter ?? "",
       imageUrl: raw?.personalInfo?.imageUrl ?? "",
+      spotifyUrl: raw?.personalInfo?.spotifyUrl ?? "",
     },
     summary: raw?.summary ?? "",
     skills: {
