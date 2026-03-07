@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -126,13 +127,13 @@ export function SpotifyCard({ url, className }: SpotifyCardProps) {
             alt=""
             className="absolute brightness-150 left-0 top-0 block h-full w-full blur-[50px]"
           />
-          <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(180deg,_rgba(0,_0,_0,_0)_0,_rgba(0,_0,_0,_.8))]" />
+          <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(180deg,rgba(0,0,0,0)_0,rgba(0,0,0,.8))]" />
         </div>
       </div>
       <button
         onClick={data.audio ? handlePlayPause : undefined}
         className={cn(
-          "group relative z-[1] w-full max-w-[75px] self-center",
+          "group relative z-1 w-full max-w-18.75 self-center",
           data.audio && "cursor-pointer",
         )}
       >
@@ -140,7 +141,7 @@ export function SpotifyCard({ url, className }: SpotifyCardProps) {
           src={data.image}
           alt={data.title}
           className={cn(
-            "pointer-events-none relative z-[1] min-h-[100px] min-w-[100px] w-full select-none rounded-lg object-cover shadow-md transition-transform duration-300 ease-out",
+            "pointer-events-none relative z-1 min-h-25 min-w-25 w-full select-none rounded-lg object-cover shadow-md transition-transform duration-300 ease-out",
             data.audio && "group-hover:-translate-x-0.5",
             isPlaying && "-translate-x-0.5",
           )}
