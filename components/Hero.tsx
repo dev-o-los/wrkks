@@ -54,6 +54,23 @@ const Hero = () => (
       </div>
     </div>
 
+    {/* Product Preview Video */}
+    <div className="mt-6 w-full flex justify-center px-0 md:px-4">
+      <div className="relative rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 shadow-[0_0_50px_-12px_rgba(0,0,0,0.3)] dark:shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)] w-full max-w-5xl mx-auto">
+        <video
+          className="w-full object-cover scale-[1.01]"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/video-poster.jpg"
+        >
+          <source src="/og-vid.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
     <Timeline />
   </div>
 );
